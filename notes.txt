@@ -1,0 +1,1 @@
+"java -jar [application-name].jar" to run an executable jar file
