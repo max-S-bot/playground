@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ ! $# -eq 2 ]; then
+    echo "Exactly two arguments required"
+    echo "jarify must be invoked as: \"jarify [package_name] [name_and_destination_of_jar_file]\""
+    exit 1
+fi
+
+# java package to jarify 
+package=$1
+
+# name of the jar file 
+name=$2
+
+dir=temp_directory_name_that_no_one_else_should_be_able_to_come_up_with_and_I_know_theres_a_special_command_for_it_but_this_is_better
+
+mkdir $dir
+
+javac -d $dir $package/*.java
+
+cd $dir
+
+jar cvf ../$name $package/*.class
+
+cd ..
+
+rm -r $dir
