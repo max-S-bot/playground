@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 
+'use strict';
 const fs = require('node:fs');
-const util = require('./build/util.js')
+const util = require('./util.js')
 const print = console.log;
 
 const config = util.tryDef({}, require, './buildConfig.json');
 const lib = tryDef([], fs.readFileSync, './lib');
-const classes = util.classes();
+const classes = util.tryDef([], fs.readdirSync, './classes');
 const cp = '\"classes:lib/*\"';
 
+manageLib()
 doBuild();
 util.sh(`java -cp ${cp} ${config.main}`); 
 
@@ -30,6 +32,10 @@ const manageLib = () => {
     for (const dep of config.lib)
         if (!lib.includes(dep))
             download(dep);
+}
+
+const download = (dep) => {
+
 }
 
 const mod = file =>

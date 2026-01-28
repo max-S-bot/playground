@@ -1,12 +1,9 @@
-const fs = require('node:fs');
+'use strict';
 const { execSync } = require('node:child_process')
 const print = console.log;
 
 const sh = command =>
     execSync(command, {encoding: 'utf8'});
-
-const classes = () =>
-    tryDef([], fs.readdirSync, './classes');
 
 const tryDef = (def, func, ...args) => {
     try {
@@ -16,4 +13,5 @@ const tryDef = (def, func, ...args) => {
     }
 }
 
-module.exports = {classes, tryDef, sh};
+module.exports = Object.freeze({ tryDef, sh });
+//module.exports = {tryDef: tryDef, sh: sh}; 
