@@ -17,8 +17,14 @@ def nextStatus(val: bool, i: int, j: int) -> bool:
 
 inRange = lambda k, l: k >= 0 and k < H and l >= 0 and l < W
 
+def printGrid():
+    for i in range(H):
+        for j in range(W):
+            print('X' if grid[i][j] else 'O', end=' ')
+        print()
+
 def doGen():
     pass # alter array here
-    print(grid)
+    printGrid(grid)
 
 threading.Timer(5, doGen).start()
