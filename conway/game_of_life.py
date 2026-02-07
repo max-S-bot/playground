@@ -1,3 +1,5 @@
+# virutal environment activation command: source conway/venv/bin/activate
+
 import numpy as np
 import threading
 
@@ -6,7 +8,7 @@ W: int = 8
 
 grid = np.zeros((H, W), dtype=bool)
 
-#configure grid
+# configure grid
 
 def nextStatus(val: bool, i: int, j: int) -> bool: 
     liveNeighbors: int = 0
