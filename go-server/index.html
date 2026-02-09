@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Files</title>
+    <style>body{background-color:rgb(0,255,128);text-align:center;}</style>
+</head>
+<body>
+    <h1>Files</h1>
+    <a href="foobar">foo bar</a><br><br>
+    <script>
+        const print = console.log;
+        const qIdx = document.URL.indexOf('?');
+        const link = document.URL.slice(0, qIdx);
+        const q = document.URL.slice(qIdx+1);
+        for (const file of ['foo', 'bar', 'baz']) {
+            const a = document.createElement('a');
+            Object.assign(a, {href: `${link}?${file}`, innerHTML: file});
+            document.body.appendChild(a);
+            document.body.appendChild(document.createElement('br'));
+            document.body.appendChild(document.createElement('br'));
+        }
+        fetch('index.html').then(res => res.text().then(print))
+    </script>
+</body>
+</html>
