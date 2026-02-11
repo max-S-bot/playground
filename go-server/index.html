@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Files</h1>
-    <a href="foobar">foo bar</a><br><br>
+    <div id="dir" style="display:none">foobar</div>
     <script>
         const print = console.log;
         const qIdx = document.URL.indexOf('?');
@@ -20,7 +20,10 @@
             document.body.appendChild(document.createElement('br'));
             document.body.appendChild(document.createElement('br'));
         }
-        fetch('index.html').then(res => res.text().then(print))
+        fetch('/tmp')
+            .then(res => res.text()
+                .then(print));
+                //.then(t => document.getElementById('dir').innerHTML = t));
     </script>
 </body>
 </html>
