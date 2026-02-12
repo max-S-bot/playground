@@ -1,23 +1,30 @@
 package io.github.mxz_schwarz.solitaire;
 
-public class Pile {
+class Pile extends Cards {
 
-    final Card[] cards;
-    int cur = -1;
+    private final Card[] hidden;
+    private final Card[] shown = new Card[13];
+    private int cur = -1;
+    private int idx = -1;
 
     public Pile(int cap) {
-        cards = new Card[cap];
+        hidden = new Card[cap-1];
     }
 
-    void add(Card c) throws TryAgainException {
-        cards[++cur] = c;
+    @Override
+    void deal(Card c) {
+        if (++cur == hidden.length)
+            shown[++idx] = c;
+        else hidden[cur] = c;
     }
 
-    Card top() throws TryAgainException {
-        return cards[cur];
+    Card top() {
+        return cur == -1 ? null : hidden[cur];
     }
 
-    Card pop() throws TryAgainException {
-        return cards[cur--];
+    Card take() throws SolitaireException {
+        if (cur == -1)
+            throw new SolitaireException("No more cards");
+        return hidden[cur--];
     }
 }

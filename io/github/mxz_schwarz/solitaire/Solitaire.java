@@ -25,7 +25,11 @@ class Solitaire extends javax.swing.JPanel {
         deck = new Deck();
         for (int i = 0; i < 7; i++)
             for (int j = i; j < 7; j++)
-                piles[j].add(deck.take());
+                try {
+                    piles[j].add(deck.take());
+                } catch(SolitaireException tae) {
+                    throw new RuntimeException(tae);
+                }
         java.util.Arrays.setAll(stocks, i -> new Pile(13));
     }
 

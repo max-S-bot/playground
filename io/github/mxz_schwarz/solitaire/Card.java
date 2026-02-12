@@ -2,7 +2,7 @@ package io.github.mxz_schwarz.solitaire;
 
 import java.util.List;
 
-class Card {
+class Card { // this is pretty much a really weird enum
 
     private final Suite s;
     private final Rank r;

@@ -1,10 +1,10 @@
 package io.github.mxz_schwarz.solitaire;
 
-public enum Suite {
+enum Suite {
     SPADES,
     HEARTS,
     CLUBS,
     DIAMONDS;
 
-    static Suite[] SUITES = Suite.values(); 
+    static Suite[] SUITES = values(); 
 }

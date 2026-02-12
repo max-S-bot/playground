@@ -1,6 +1,6 @@
 package io.github.mxz_schwarz.solitaire;
 
-public enum Rank {
+enum Rank {
     ACE,
     TWO,
     THREE,
@@ -15,5 +15,5 @@ public enum Rank {
     QUEEN,
     KING;
 
-    static Rank[] RANKS = Rank.values();
+    static Rank[] RANKS = values();
 }

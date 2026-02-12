@@ -1,6 +1,6 @@
 package io.github.mxz_schwarz.solitaire;
 
-class Deck {
+class Deck extends Cards{
 
     private final Card[] cards;
 
@@ -10,15 +10,15 @@ class Deck {
     {
         Card[] cards = new Card[52];
         for (Card c : Card.cards) {
-            int idx = (int) (52*Math.random());
-            while (cards[idx] != null)
-                idx = (int) (52*Math.random());
+            int idx;
+            do idx = (int) (52 * Math.random());
+            while (cards[idx] != null);
             cards[idx] = c;
         }
         this.cards = cards;
     }
 
-    Card draw() {
+    Card top() {
         Card c = cards[pos];
         skipToNext();
         return c;
