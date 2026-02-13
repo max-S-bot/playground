@@ -17,7 +17,7 @@ class Solitaire extends javax.swing.JPanel {
     private final int h;
     private final Deck deck;
     private final Pile[] piles = new Pile[7];
-    private final Pile[] stocks = new Pile[4];
+    private final Stock[] stocks = new Stock[4];
 
     Solitaire(java.awt.Dimension d) {
         w = d.width;
@@ -25,12 +25,9 @@ class Solitaire extends javax.swing.JPanel {
         deck = new Deck();
         for (int i = 0; i < 7; i++)
             for (int j = i; j < 7; j++)
-                try {
-                    piles[j].add(deck.take());
-                } catch(SolitaireException tae) {
-                    throw new RuntimeException(tae);
-                }
-        java.util.Arrays.setAll(stocks, i -> new Pile(13));
+                piles[j].deal(deck.take());
+        for (Suite s : Suite.SUITES)
+            stocks[s.ordinal()] = new Stock(s);  
     }
 
     @Override

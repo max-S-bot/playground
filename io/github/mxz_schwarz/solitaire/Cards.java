@@ -3,6 +3,7 @@ package io.github.mxz_schwarz.solitaire;
 // this would be an interface
 // if java wasn't so strict about
 // them only defining a 'public contract'
+// and I like my access modifiers.
 abstract class Cards {
 
     void deal(Card c) throws SolitaireException {

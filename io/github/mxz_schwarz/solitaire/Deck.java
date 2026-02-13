@@ -32,7 +32,7 @@ class Deck extends Cards{
     }
 
     private void skipToNext() {
-        do pos = ((pos - 1) % 52 + 52) % 52;
+        do pos = (pos + 51) % 52; // this is effectively subtracting one (% is remainder, not )
         while (cards[pos] == null);
     }
 
