@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 class Solitaire extends javax.swing.JPanel {
 
-    static void main(String[] args) {
+    static void main(String[] args) throws SolitaireException {
         JFrame frame = new JFrame("Solitaire");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 450);
@@ -19,7 +19,7 @@ class Solitaire extends javax.swing.JPanel {
     private final Pile[] piles = new Pile[7];
     private final Stock[] stocks = new Stock[4];
 
-    Solitaire(java.awt.Dimension d) {
+    Solitaire(java.awt.Dimension d) throws SolitaireException {
         w = d.width;
         h = d.height;
         deck = new Deck();
@@ -27,11 +27,26 @@ class Solitaire extends javax.swing.JPanel {
             for (int j = i; j < 7; j++)
                 piles[j].deal(deck.take());
         for (Suite s : Suite.SUITES)
-            stocks[s.ordinal()] = new Stock(s);  
+            stocks[s.ordinal()] = new Stock(s);
+        repaint();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        for (Pile p : piles)
+            p.draw(g);
+        for (Stock s : stocks)
+            s.draw(g);
+        deck.draw(g);
+    }
+
+    Cards at(int x, int y) {
+        return null; // make this something sensible
+    }
+
+    void handle(SolitaireException se) {
+        // handle error
+        
     }
 }

@@ -2,28 +2,28 @@ package io.github.mxz_schwarz.solitaire;
 
 class Deck extends Cards{
 
-    private final Card[] cards;
+    private final Card[] cards = Card.values();
 
     private int pos = 51;
 
-    // super inefficient. will totally fix later.
+    // https://en.wikipedia.org/wiki/Fisher-Yates_shuffle
     {
-        Card[] cards = new Card[52];
-        for (Card c : Card.cards) {
-            int idx;
-            do idx = (int) (52 * Math.random());
-            while (cards[idx] != null);
-            cards[idx] = c;
+        for (int i = 1; i < 52; i++) {
+            int j = (int) ((i+1) * Math.random());
+            Card temp = cards[i];
+            cards[i] = cards[j];
+            cards[j] = temp;
         }
-        this.cards = cards;
     }
 
+    @Override
     Card top() {
         Card c = cards[pos];
         skipToNext();
         return c;
     }
 
+    @Override
     Card take() {
         Card c = cards[pos];
         cards[pos] = null;
@@ -31,9 +31,14 @@ class Deck extends Cards{
         return c;
     }
 
+    @Override
+    void draw(java.awt.Graphics g) {
+
+    }
+
     private void skipToNext() {
-        do pos = (pos + 51) % 52; // this is effectively subtracting one (% is remainder, not )
-        while (cards[pos] == null);
+        do pos = (pos + 51) % 52; // this is effectively subtracting one (% is remainder, not mod)
+        while (cards[pos] == null); // will adjust this class so that this method isn't needed by shifting elements to the left each time the end of the deck is reached 
     }
 
 }

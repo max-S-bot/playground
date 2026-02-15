@@ -14,4 +14,6 @@ abstract class Cards {
 
     abstract Card take() throws SolitaireException;
 
+    abstract void draw(java.awt.Graphics g);
+
 }
