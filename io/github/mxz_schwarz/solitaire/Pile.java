@@ -12,29 +12,40 @@ class Pile extends Cards {
     }
 
     @Override
-    void deal(Card c) throws SolitaireException {
+    void deal(Cards cs) throws SolitaireException {
+        Card c = cs.top();
         if (cur == cards.length)
-            if ((stack[0] == null && c.r() == Rank.KING) 
-                || ((stack[0].s().ordinal() + idx + 1) % 2 == c.s().ordinal() % 2 
-                && stack[0].r().ordinal() + idx + 1 == c.r().ordinal()))
+            if ((idx == -1 && c.r() == Rank.KING) 
+                || ((stack[idx].s().ordinal() + 1) % 2 == c.s().ordinal() % 2 
+                && stack[idx].r().ordinal() - 1 == c.r().ordinal()))
                 cards[++idx] = c;
             else
                 throw new SolitaireException("Invalid card");
         else if (++cur == cards.length)
-            cards[0] = c;
+            cards[++idx] = c;
         else cards[cur] = c;
     }
 
     @Override
-    Card top() {
-        return idx == -1 ? null : stack[idx];
+    Card top() throws SolitaireException{
+        if (idx != -1)
+            return stack[idx];
+        else 
+            throw new SolitaireException("No more cards");
     }
 
-    @Override
     Card take() throws SolitaireException {
         if (idx == -1)
             throw new SolitaireException("No more cards");
-        return stack[idx];
+        else if (idx != 0)
+            return stack[idx--];
+        Card temp = stack[0];
+        if (cur == -1)
+            idx = -1;
+        else
+            stack[0] = cards[cur--];
+        return temp;
+        
     }
 
     @Override

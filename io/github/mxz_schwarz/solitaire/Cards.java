@@ -6,9 +6,7 @@ package io.github.mxz_schwarz.solitaire;
 // and I like my access modifiers.
 abstract class Cards {
 
-    void deal(Card c) throws SolitaireException {
-        throw new SolitaireException("Cannot add to this Cards");
-    }
+    abstract void deal(Cards cs) throws SolitaireException;
 
     abstract Card top() throws SolitaireException;
 

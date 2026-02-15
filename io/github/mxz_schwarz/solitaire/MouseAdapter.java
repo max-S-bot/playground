@@ -3,7 +3,6 @@ package io.github.mxz_schwarz.solitaire;
 class MouseAdapter extends java.awt.event.MouseAdapter {
 
     private final Solitaire game;
-
     private Cards first = null;
 
     MouseAdapter(Solitaire game) {
@@ -16,7 +15,7 @@ class MouseAdapter extends java.awt.event.MouseAdapter {
             first = game.at(e.getX(), e.getY());
         else
             try {
-                game.at(e.getX(), e.getY()).deal(first.take());
+                game.at(e.getX(), e.getY()).deal(first);
             } catch (SolitaireException se) {
                 game.handle(se);
             } finally {

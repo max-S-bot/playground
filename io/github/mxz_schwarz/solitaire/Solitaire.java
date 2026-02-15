@@ -25,7 +25,7 @@ class Solitaire extends javax.swing.JPanel {
         deck = new Deck();
         for (int i = 0; i < 7; i++)
             for (int j = i; j < 7; j++)
-                piles[j].deal(deck.take());
+                piles[j].deal(deck);
         for (Suite s : Suite.SUITES)
             stocks[s.ordinal()] = new Stock(s);
         addMouseListener(new MouseAdapter(this));

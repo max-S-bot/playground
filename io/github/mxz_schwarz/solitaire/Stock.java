@@ -10,22 +10,27 @@ class Stock extends Cards {
     }
 
     @Override
-    void deal(Card c) throws SolitaireException {
-        if (c.s() == s && idx + 1 == c.r().ordinal())
+    void deal(Cards cs) throws SolitaireException {
+        if (cs.top().s() == s && idx + 1 == cs.top().r().ordinal())
             idx++;
-        else throw new SolitaireException("Invalid card");
+        else 
+            throw new SolitaireException("Invalid card");
     }
 
     @Override
-    Card top() {
-        return idx == -1 ? null : Card.of(s, Rank.RANKS[idx]); 
+    Card top() throws SolitaireException {
+        if (idx != -1)
+            return Card.of(s, Rank.RANKS[idx]); 
+        else 
+            throw new SolitaireException("No more cards");
     }
 
     @Override
     Card take() throws SolitaireException {
         if (idx == -1)
             throw new SolitaireException("No more cards");
-        return Card.of(s, Rank.RANKS[idx]);
+        return 
+            Card.of(s, Rank.RANKS[idx]);
     }
 
     @Override

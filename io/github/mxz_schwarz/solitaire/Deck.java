@@ -3,8 +3,8 @@ package io.github.mxz_schwarz.solitaire;
 class Deck extends Cards{
 
     private final Card[] cards = Card.values();
-
     private int pos = 51;
+    private int count = 52;
 
     // https://en.wikipedia.org/wiki/Fisher-Yates_shuffle
     {
@@ -17,17 +17,27 @@ class Deck extends Cards{
     }
 
     @Override
-    Card top() {
-        Card c = cards[pos];
-        skipToNext();
-        return c;
+    void deal(Cards cs) throws SolitaireException {
+        if (this == cs)
+            next();
+        else 
+            throw new SolitaireException("Can't add to the deck");
+    }
+
+    @Override
+    Card top() throws SolitaireException {
+        if (count != 0)
+            return cards[pos];
+        else 
+            throw new SolitaireException("Can't draw from empty deck");
     }
 
     @Override
     Card take() {
         Card c = cards[pos];
         cards[pos] = null;
-        skipToNext();
+        do next(); 
+        while (cards[pos] == null);
         return c;
     }
 
@@ -36,9 +46,8 @@ class Deck extends Cards{
 
     }
 
-    private void skipToNext() {
-        do pos = (pos + 51) % 52; // this is effectively subtracting one (% is remainder, not mod)
-        while (cards[pos] == null); // will adjust this class so that this method isn't needed by shifting elements to the left each time the end of the deck is reached 
+    private void next() {
+        pos = (pos + 51) % 52; // this is effectively subtracting one (% is remainder, not mod)
     }
 
 }
