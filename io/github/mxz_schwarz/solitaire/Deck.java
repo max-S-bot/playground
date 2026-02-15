@@ -32,7 +32,7 @@ class Deck extends Cards{
     }
 
     @Override
-    void draw(java.awt.Graphics g) {
+    void draw(java.awt.Graphics g   ) {
 
     }
 

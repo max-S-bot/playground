@@ -28,6 +28,7 @@ class Solitaire extends javax.swing.JPanel {
                 piles[j].deal(deck.take());
         for (Suite s : Suite.SUITES)
             stocks[s.ordinal()] = new Stock(s);
+        addMouseListener(new MouseAdapter(this));
         repaint();
     }
 
@@ -47,6 +48,5 @@ class Solitaire extends javax.swing.JPanel {
 
     void handle(SolitaireException se) {
         // handle error
-        
     }
 }

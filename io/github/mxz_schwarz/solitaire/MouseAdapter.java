@@ -1,7 +1,5 @@
 package io.github.mxz_schwarz.solitaire;
 
-import java.awt.event.MouseEvent;
-
 class MouseAdapter extends java.awt.event.MouseAdapter {
 
     private final Solitaire game;
@@ -13,7 +11,7 @@ class MouseAdapter extends java.awt.event.MouseAdapter {
     }
     
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(java.awt.event.MouseEvent e) {
         if (first == null) 
             first = game.at(e.getX(), e.getY());
         else
@@ -22,6 +20,7 @@ class MouseAdapter extends java.awt.event.MouseAdapter {
             } catch (SolitaireException se) {
                 game.handle(se);
             } finally {
+                first = null;
                 game.repaint();
             }
     }
