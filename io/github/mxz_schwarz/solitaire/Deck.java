@@ -2,38 +2,54 @@ package io.github.mxz_schwarz.solitaire;
 
 class Deck extends Cards{
 
-    private final Card[] cards;
-
+    private final Card[] cards = Card.values();
     private int pos = 51;
+    private int count = 52;
 
-    // super inefficient. will totally fix later.
+    // https://en.wikipedia.org/wiki/Fisher-Yates_shuffle
     {
-        Card[] cards = new Card[52];
-        for (Card c : Card.cards) {
-            int idx;
-            do idx = (int) (52 * Math.random());
-            while (cards[idx] != null);
-            cards[idx] = c;
+        for (int i = 1; i < 52; i++) {
+            int j = (int) ((i+1) * Math.random());
+            Card temp = cards[i];
+            cards[i] = cards[j];
+            cards[j] = temp;
         }
-        this.cards = cards;
     }
 
-    Card top() {
-        Card c = cards[pos];
-        skipToNext();
-        return c;
+    @Override
+    void deal(Cards cs) throws SolitaireException {
+        if (this == cs)
+            next();
+        else 
+            throw new SolitaireException("Can't add to the deck");
     }
 
-    Card take() {
+    @Override
+    Card top() throws SolitaireException {
+        if (count != 0)
+            return cards[pos];
+        else 
+            throw new SolitaireException("Can't draw from empty deck");
+    }
+
+    @Override
+    Card take() throws SolitaireException {
+        if (count == 0)
+            throw new SolitaireException("Can't draw from empty deck");
         Card c = cards[pos];
         cards[pos] = null;
-        skipToNext();
+        do next(); 
+        while (cards[pos] == null);
         return c;
     }
 
-    private void skipToNext() {
-        do pos = ((pos - 1) % 52 + 52) % 52;
-        while (cards[pos] == null);
+    @Override
+    void draw(java.awt.Graphics g   ) {
+
+    }
+
+    private void next() {
+        pos = (pos + 51) % 52; // this is effectively subtracting one (% is remainder, not mod)
     }
 
 }

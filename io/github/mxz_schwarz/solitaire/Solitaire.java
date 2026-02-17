@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 class Solitaire extends javax.swing.JPanel {
 
-    static void main(String[] args) {
+    static void main(String[] args) throws SolitaireException {
         JFrame frame = new JFrame("Solitaire");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(1000, 450);
@@ -17,24 +17,36 @@ class Solitaire extends javax.swing.JPanel {
     private final int h;
     private final Deck deck;
     private final Pile[] piles = new Pile[7];
-    private final Pile[] stocks = new Pile[4];
+    private final Stock[] stocks = new Stock[4];
 
-    Solitaire(java.awt.Dimension d) {
+    Solitaire(java.awt.Dimension d) throws SolitaireException {
         w = d.width;
         h = d.height;
         deck = new Deck();
         for (int i = 0; i < 7; i++)
             for (int j = i; j < 7; j++)
-                try {
-                    piles[j].add(deck.take());
-                } catch(SolitaireException tae) {
-                    throw new RuntimeException(tae);
-                }
-        java.util.Arrays.setAll(stocks, i -> new Pile(13));
+                piles[j].deal(deck);
+        for (Suite s : Suite.SUITES)
+            stocks[s.ordinal()] = new Stock(s);
+        addMouseListener(new MouseAdapter(this));
+        repaint();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        for (Pile p : piles)
+            p.draw(g);
+        for (Stock s : stocks)
+            s.draw(g);
+        deck.draw(g);
+    }
+
+    Cards at(int x, int y) {
+        return null; // make this something sensible
+    }
+
+    void handle(SolitaireException se) {
+        // handle error
     }
 }
