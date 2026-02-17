@@ -11,9 +11,9 @@ class Pile extends Cards {
         cards = new Card[cap-1];
     }
 
-    @Override
+    @Override // FIXME: handle pile being dealt onto another pile
     void deal(Cards cs) throws SolitaireException {
-        Card c = cs.top();
+        Card c = cs.top(); 
         if (cur == cards.length)
             if ((idx == -1 && c.r() == Rank.KING) 
                 || ((stack[idx].s().ordinal() + 1) % 2 == c.s().ordinal() % 2 

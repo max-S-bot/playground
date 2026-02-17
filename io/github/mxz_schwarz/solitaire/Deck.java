@@ -33,7 +33,9 @@ class Deck extends Cards{
     }
 
     @Override
-    Card take() {
+    Card take() throws SolitaireException {
+        if (count == 0)
+            throw new SolitaireException("Can't draw from empty deck");
         Card c = cards[pos];
         cards[pos] = null;
         do next(); 
