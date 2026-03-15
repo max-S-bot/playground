@@ -12,8 +12,8 @@ grid = np.zeros((H, W), dtype=bool)
 
 def nextStatus(val: bool, i: int, j: int) -> bool: 
     liveNeighbors: int = 0
-    for k in range(i-1, i+1):
-        for l in range(j-1, j+1):
+    for k in range(i-1, i+2):
+        for l in range(j-1, j+2):
             liveNeighbors += (k != i or l != j) and inRange(k, l) and grid[k][l]
     return liveNeighbors == 3 or (val and liveNeighbors == 2)
 
